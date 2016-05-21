@@ -10,9 +10,34 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var container: ScrollViewContainer!
+    @IBOutlet weak var scrollView: UIScrollView!
+    let count = 3
+    
+    override func viewDidAppear(animated: Bool) {
+        
+        for index in 0..<count {
+            let x = CGFloat(index) * scrollView.frame.width
+            let frame = CGRect(x: x, y: 0, width: scrollView.frame.width, height: scrollView.frame.height)
+            let frameWithInset = CGRectInset(frame, 10, 0)
+            
+            
+            
+            let imageView = UIImageView(frame: frameWithInset)
+            imageView.image = UIImage(named: "card\(index)")
+            imageView.contentMode = .ScaleAspectFit
+            
+            scrollView.addSubview(imageView)
+        }
+        
+        let totalWidth = CGFloat(count) * scrollView.frame.width
+        scrollView.contentSize = CGSize(width: totalWidth, height: scrollView.frame.height)
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        container.scrollView = self.scrollView
     }
 
     override func didReceiveMemoryWarning() {
